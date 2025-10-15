@@ -1,11 +1,16 @@
 package utilities;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 public class Driver {
@@ -31,6 +36,21 @@ public class Driver {
                     break;
                 case "headless":
                     driverThread.set(new ChromeDriver(new ChromeOptions().addArguments("--headless")));
+                    break;
+                case "remote":
+
+                    DesiredCapabilities capabilities = new DesiredCapabilities();
+//                    capabilities.setBrowserName("chrome");
+//                    capabilities.setPlatform(Platform.WIN11);
+                    //Or:
+                    capabilities.setCapability("browserName", "chrome");
+                    capabilities.setCapability("platformName", "Windows 11");
+
+                    try {
+                        driverThread.set(new RemoteWebDriver(new URL("http://localhost:4444"), capabilities));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 default:
                     ChromeOptions options = new ChromeOptions();

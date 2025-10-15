@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
         glue = {"stepdefinitions","hooks"},
         plugin = {"pretty", "html:target/cucumber-report.html"},
         dryRun = false,
-        tags = "@addMultipleStudents"
+        tags = "@ContactList"
 )
 public class TestRunner {
 }
